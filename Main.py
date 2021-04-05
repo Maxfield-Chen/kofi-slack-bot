@@ -91,7 +91,6 @@ def formatSlackMessage(message: str) -> str:
         }
 
     ]
-    print (json.dumps(blocks))
     return json.dumps(blocks)
 
 
