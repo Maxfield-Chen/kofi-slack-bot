@@ -1,0 +1,1 @@
+30 * * * * . /tools/kofi-slack-bot/environment/bin/activate && $(which python3) /tools/kofi-slack-bot/main.py
