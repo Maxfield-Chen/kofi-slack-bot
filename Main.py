@@ -21,8 +21,8 @@ kofi_url = "https://ko-fi.com/" + kofi_user
 
 def removeDonations(item: str) -> bool:
     if "bought a coffee" in item.lower():
-        return True
-    return False
+        return False
+    return True
 
 def getNewItems(items: list[str]) -> list[str]:
     with open(serial_filename, "a+") as old_file:
