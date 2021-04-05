@@ -16,6 +16,7 @@ from slack_sdk.errors import SlackApiError
 
 
 serial_filename = "feed.json"
+summary_word_count = 20
 kofi_user = os.environ.get("SLACK_BOT_USER")
 kofi_url = "https://ko-fi.com/" + kofi_user
 
@@ -57,23 +58,40 @@ def getNewPosts(kofi_url: str) -> list[str]:
     return new_items
 
 def formatSlackMessage(message: str) -> str:
-    kofi_message = "<" + kofi_url + "| New post on Kofi 👀>"
+    message_split = message.split("\n")
+    message_title = message_split[2]
+    message_body = message_split[3]
+    message_summary = " ".join(message_body.split(" ")[:summary_word_count]) + ". . . ."
     blocks = [
-        {
-            "type": "header",
-            "text": {
-                "type": "mrkdwn",
-                "text":  kofi_message
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "There's a new post available on Kofi:"
+			}
+		},
+		{
+			"type": "section",
+			"block_id": "kofi_post",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":eyes:<" + kofi_url + "|" + message_title + "> :eyes: \n " + message_summary
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://storage.ko-fi.com/cdn/useruploads/b8486e99-32fc-48e7-aba9-05eb3a2e92ea.png",
+                "alt_text": "Kofi Brand Image"
             }
         },
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": message
-            }
+            "type": "divider"
         }
+
     ]
+    print (json.dumps(blocks))
     return json.dumps(blocks)
 
 
@@ -95,8 +113,9 @@ def main():
     new_items = getNewPosts(kofi_url)
 
     for message in new_items:
-        message = formatSlackMessage(message)
-        successful = sendSlackMessage(message)
+        if message:
+            message = formatSlackMessage(message)
+            successful = sendSlackMessage(message)
 
 if __name__ == "__main__":
     main()
