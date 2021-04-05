@@ -1,5 +1,5 @@
 # kofi-slack-bot
-A slack bot for [Ko-fi] (https://ko-fi.com). The official Kofi slack bot will only report donations, this bot only reports new posts made on the creator's Kofi page.
+A slack bot for [Ko-fi](https://ko-fi.com). The official Kofi slack bot will only report donations, this bot only reports new posts made on the creator's Kofi page.
 
 ![Example Message](https://maxfieldchen.com/images/kofi-slack-bot.png)
 
