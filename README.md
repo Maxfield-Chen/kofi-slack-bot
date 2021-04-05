@@ -3,9 +3,9 @@ A slack bot for [Ko-fi](https://ko-fi.com). The official Kofi slack bot will onl
 
 ![Example Message](https://maxfieldchen.com/images/kofi-slack-bot.png)
 
-This bot is dockerized and can be installed on the hosting service of your choice with the following command:
+This bot comes with a install script that will start a cronjob as the root user to check for updates once an hour. This setup script can be run on the hosting provider of your choice using the following command:
 
-`docker to-do`
+``
 
 The configuration for this bot can be performed by setting the following environment variables:
 
