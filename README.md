@@ -14,6 +14,8 @@ Ensure you have a Slack authentication token, channel name, and Ko-fi creator na
 
 This bot comes with a install script that will start a cronjob as the root user to check for updates once an hour. This setup script can be run on the hosting provider of your choice using the following command:
 
+## Automated Script Install
+
 `wget -qO- https://github.com/Maxfield-Chen/kofi-slack-bot/releases/download/v0.1/install.sh`
 
 The configuration for this bot will be performed for you during the setup script run, but may also be performed by setting the following environment variables:
