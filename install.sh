@@ -14,32 +14,32 @@ fi
 logging "Configure your Ko-fi SlackBot."
 
 read -p 'Enter Kofi Username: ' username
-read -sp 'Enter Slack Auth Token: ' authtoken
+read -p 'Enter Slack Auth Token: ' authtoken
 read -p 'Enter Channel Name: ' channel
 
 logging "Installing dependencies..."
 
 apt update
-apt install python3 geckodriver git
+apt install --yes --force-yes python3 geckodriver git python3-venv
 
 logging "Creating /tools/ Directory..."
 mkdir /tools/
 cd /tools/
 logging "Cloning SlackBot Code..."
-git clone git@github.com:Maxfield-Chen/kofi-slack-bot.git
-cd kofi-slack-bot/
+git clone https://github.com/Maxfield-Chen/kofi-slack-bot.git
 logging "Installing Python Packages..."
+cd kofi-slack-bot
 python3 -m venv environment
-. ./environment/bin/activate
-pip install -r ./requirements.txt
+. /tools/kofi-slack-bot/environment/bin/activate
+pip install -r /tools/kofi-slack-bot/requirements.txt
 
 logging "Setting up hourly crontab..."
 
-echo -e "SLACK_BOT_USER=$username\n$(cat /etc/crontab)" > /etc/crontab/
-echo -e "SLACK_BOT_TOKEN=$authtoken\n$(cat /etc/crontab)" > /etc/crontab/
-echo -e "SLACK_BOT_USER=$channel\n$(cat /etc/crontab)" > /etc/crontab/
+echo -e "export SLACK_BOT_USER=$username\n" > /tools/kofi-slack-bot/environment-vars.sh
+echo -e "export SLACK_BOT_TOKEN=$authtoken\n" > /tools/kofi-slack-bot/environment-vars.sh
+echo -e "export SLACK_BOT_CHANNEL=$channel\n" > /tools/kofi-slack-bot/environment-vars.sh
 
-cat ./crontab.txt >> /etc/crontab
+cat /tools/kofi-slack-bot/crontab.txt >> /etc/crontab
 
 logging "Changing file permissions to root to prevent security issues..."
 

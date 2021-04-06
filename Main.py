@@ -2,6 +2,7 @@ from selenium import webdriver
 import os
 import json
 import sys
+from typing import List
 import typing
 import requests
 from slack_sdk import WebClient
@@ -25,8 +26,8 @@ def removeDonations(item: str) -> bool:
         return False
     return True
 
-def getNewItems(items: list[str]) -> list[str]:
-    with open(serial_filename, "a+") as old_file:
+def getNewItems(items: List[str]) -> List[str]:
+    with open(serial_filename, "r+") as old_file:
         old_data = old_file.read()
         if not old_data: old_data = json.dumps({"feed": []})
         previous_items = json.loads(old_data)["feed"]
@@ -41,7 +42,7 @@ def getNewItems(items: list[str]) -> list[str]:
         return new_items
 
 
-def getNewPosts(kofi_url: str) -> list[str]:
+def getNewPosts(kofi_url: str) -> List[str]:
     new_items = []
     try:
         FirefoxOptions = webdriver.FirefoxOptions()

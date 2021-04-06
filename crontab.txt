@@ -1,1 +1,1 @@
-30 * * * * . /tools/kofi-slack-bot/environment/bin/activate && $(which python3) /tools/kofi-slack-bot/main.py
+30 * * * * root cd /tools/kofi-slack-bot/ && . /tools/kofi-slack-bot/environment-vars.sh && . /tools/kofi-slack-bot/environment/bin/activate && $(which python3) /tools/kofi-slack-bot/Main.py
