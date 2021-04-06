@@ -45,9 +45,9 @@ def getNewItems(items: List[str]) -> List[str]:
 def getNewPosts(kofi_url: str) -> List[str]:
     new_items = []
     try:
-        FirefoxOptions = webdriver.FirefoxOptions()
-        FirefoxOptions.set_headless()
-        driver = webdriver.Firefox(firefox_options=FirefoxOptions)
+        firefox_options = webdriver.FirefoxOptions()
+        firefox_options.add_argument("--headless")
+        driver = webdriver.Firefox(firefox_options=firefox_options)
         driver.get(kofi_url)
         feed_items = list(map(lambda i: i.text, driver.find_elements_by_class_name("feeditem-unit")))
         new_items = getNewItems(feed_items)
