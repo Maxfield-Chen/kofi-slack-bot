@@ -26,13 +26,14 @@ apt install --yes --force-yes python3 git python3-venv firefox-geckodriver
 logging "Creating /tools/ Directory..."
 mkdir /tools/
 chown -R $linuxuser /tools
+find /tools -name * -exec chown $linuxuser {} \;
 cd /tools/
 
 logging "Cloning SlackBot Code..."
 git clone https://github.com/Maxfield-Chen/kofi-slack-bot.git
 
 logging "Adding your user to the crontab..."
-sed -i 's/maxfchen/$linuxuser/g' /tools/kofi-slack-bot/crontab.txt
+sed -i "s/maxfchen/$linuxuser/g" /tools/kofi-slack-bot/crontab.txt
 
 logging "Installing Python Packages..."
 cd kofi-slack-bot
@@ -42,9 +43,9 @@ pip install -r /tools/kofi-slack-bot/requirements.txt
 
 logging "Setting up hourly crontab..."
 
-echo -e "export SLACK_BOT_USER=$username\n" > /tools/kofi-slack-bot/environment-vars.sh
-echo -e "export SLACK_BOT_TOKEN=$authtoken\n" > /tools/kofi-slack-bot/environment-vars.sh
-echo -e "export SLACK_BOT_CHANNEL=$channel\n" > /tools/kofi-slack-bot/environment-vars.sh
+echo -e "export SLACK_BOT_USER=$username\n" >> /tools/kofi-slack-bot/environment-vars.sh
+echo -e "export SLACK_BOT_TOKEN=$authtoken\n" >> /tools/kofi-slack-bot/environment-vars.sh
+echo -e "export SLACK_BOT_CHANNEL=$channel\n" >> /tools/kofi-slack-bot/environment-vars.sh
 
 cat /tools/kofi-slack-bot/crontab.txt >> /etc/crontab
 
