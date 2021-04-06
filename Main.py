@@ -50,7 +50,7 @@ def getNewPosts(kofi_url: str) -> List[str]:
         firefox_options.add_argument("--headless")
         driver = webdriver.Firefox(firefox_options=firefox_options)
         driver.get(kofi_url)
-        feed_items = list(map(lambda i: i.text, driver.find_elements_by_class_name("feeditem-unit")))
+        feed_items = list(map(lambda i: ''.join(i.text.split('\n')[:2]), driver.find_elements_by_class_name("feeditem-unit")))
         new_items = getNewItems(feed_items)
     finally:
         try:
@@ -61,8 +61,8 @@ def getNewPosts(kofi_url: str) -> List[str]:
 
 def formatSlackMessage(message: str) -> str:
     message_split = message.split("\n")
-    message_title = message_split[2]
-    message_body = message_split[3]
+    message_title = message_split[0]
+    message_body = message_split[1]
     message_summary = " ".join(message_body.split(" ")[:summary_word_count]) + ". . . ."
     blocks = [
 		{
@@ -102,6 +102,7 @@ def sendSlackMessage(message_block: str) -> bool:
     try:
         result = client.chat_postMessage(
             channel = channel_id,
+            text = "There's a new post available on Kofi!",
             blocks = message_block
         )
     except SlackApiError as e:
