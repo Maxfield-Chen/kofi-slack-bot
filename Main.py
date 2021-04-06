@@ -16,7 +16,7 @@ from slack_sdk.errors import SlackApiError
 '''
 
 
-serial_filename = "feed.json"
+serial_filename = "/tools/kofi-slack-bot/feed.json"
 summary_word_count = 20
 kofi_user = os.environ.get("SLACK_BOT_USER")
 kofi_url = "https://ko-fi.com/" + kofi_user
