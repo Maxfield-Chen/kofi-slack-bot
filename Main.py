@@ -27,7 +27,6 @@ def removeDonations(item: str) -> bool:
     return True
 
 def getNewItems(items: List[str]) -> List[str]:
-
     with open(serial_filename, "r+") as old_file:
         old_data = old_file.read()
         if not old_data: old_data = json.dumps({"feed": []})
@@ -41,7 +40,6 @@ def getNewItems(items: List[str]) -> List[str]:
             new_items = [item for item in items if item not in previous_items]
         new_items = filter(removeDonations, new_items)
         return new_items
-
 
 def getNewPosts(kofi_url: str) -> List[str]:
     new_items = []
@@ -97,7 +95,6 @@ def formatSlackMessage(message: str) -> str:
     ]
     return json.dumps(blocks)
 
-
 def sendSlackMessage(message_block: str) -> bool:
     client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN"))
     channel_id = os.environ.get("SLACK_BOT_CHANNEL")
@@ -111,7 +108,6 @@ def sendSlackMessage(message_block: str) -> bool:
         print(f"Error: {e}")
         return False
     return True
-
 
 def main():
     new_items = getNewPosts(kofi_url)
