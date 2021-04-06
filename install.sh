@@ -25,7 +25,7 @@ apt install --yes --force-yes python3 git python3-venv firefox-geckodriver
 
 logging "Creating /tools/ Directory..."
 mkdir /tools/
-chown $linuxuser /tools
+chown -R $linuxuser /tools
 cd /tools/
 
 logging "Cloning SlackBot Code..."
