@@ -19,7 +19,7 @@ This bot comes with a install script that will start a cronjob as the user of yo
 This setup script can be run on the hosting provider of your choice using the following command:
 
 ```
-sudo wget -qO- https://github.com/Maxfield-Chen/kofi-slack-bot/releases/download/v0.1/install.sh | bash
+sudo wget -qO- https://github.com/Maxfield-Chen/kofi-slack-bot/releases/download/v1.0/install.sh | bash
 ```
 
 The configuration for this bot will be performed for you during the setup script run, but may also be performed by setting the following environment variables:
