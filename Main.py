@@ -29,7 +29,7 @@ def removeDonations(item: str) -> bool:
 def getNewItems(items: List[str]) -> List[str]:
 
     with open(serial_filename, "w+") as serialize_file: pass
-    with open(serial_filename, "r+") as old_file:
+    with open(serial_filename, "a+") as old_file:
         old_data = old_file.read()
         if not old_data: old_data = json.dumps({"feed": []})
         previous_items = json.loads(old_data)["feed"]

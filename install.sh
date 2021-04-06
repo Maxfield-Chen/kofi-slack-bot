@@ -25,7 +25,6 @@ apt install --yes --force-yes python3 git python3-venv firefox-geckodriver
 
 logging "Creating /tools/ Directory..."
 mkdir /tools/
-chown -R $linuxuser /tools
 cd /tools/
 
 logging "Cloning SlackBot Code..."
@@ -49,3 +48,5 @@ echo -e "export SLACK_BOT_CHANNEL=$channel\n" >> /tools/kofi-slack-bot/environme
 cat /tools/kofi-slack-bot/crontab.txt >> /etc/crontab
 
 logging "All done! Make sure to check /etc/crontab and verify that your configuration is correct."
+
+chown -R $linuxuser /tools
