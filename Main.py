@@ -50,7 +50,9 @@ def getNewPosts(kofi_url: str) -> List[str]:
         firefox_options.add_argument("--headless")
         driver = webdriver.Firefox(firefox_options=firefox_options)
         driver.get(kofi_url)
-        feed_items = list(map(lambda i: ''.join(i.text.split('\n')[:2]), driver.find_elements_by_class_name("feeditem-unit")))
+        # Remove the time stamp from blog post output,
+        # otherwise we will repost blogs based on the different time.
+        feed_items = list(map(lambda i: '\n'.join(i.text.split('\n')[2:]), driver.find_elements_by_class_name("feeditem-unit")))
         new_items = getNewItems(feed_items)
     finally:
         try:
